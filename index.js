@@ -1,16 +1,17 @@
-const vite = require("vite")
+const vite = require('vite');
 const path = require('path');
 const { ServerResponse } = require('http');
 const { isTestFilePath } = require('@web/test-runner');
 
-
 // quick toggleable log function
-const VERBOSE = true
-function log(el){
-  if(VERBOSE){ console.log(el)}
+const VERBOSE = true;
+function log(el) {
+  if (VERBOSE) {
+    console.log(el);
+  }
 }
 
-log(vite)
+log(vite);
 
 /**
  * Checks whether the url is a virtual file served by @web/test-runner.
@@ -35,7 +36,7 @@ To Resolve:
   return {
     name: 'vite-plugin',
     async serverStart({ fileWatcher }) {
-      config = await vite.resolveConfig({server: {port: 8081}})
+      config = await vite.resolveConfig({ server: { port: 8081 } });
       server = await vite.createServer(config);
     },
     async serverStop() {
@@ -46,16 +47,16 @@ To Resolve:
         return;
       }
       const reqPath = request.path;
-      log("REQ: ", request)
-      log("SERVER", server)
+      log('REQ: ', request);
+      log('SERVER', server);
       try {
         // const result = await server.loadUrl(reqPath, { isSSR: false });
         // const result = await server.middlewares.handle(request)
         // const result = await server.transformRequest(request.path, {ssr: false, html: false})
-        log("RESULT", result)
+        log('RESULT', result);
         return { body: result.contents, type: result.contentType };
-      } catch(e) {
-        console.log(e)
+      } catch (e) {
+        console.log(e);
         return;
       }
     },

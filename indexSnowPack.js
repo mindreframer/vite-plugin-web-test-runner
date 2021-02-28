@@ -1,5 +1,5 @@
 // VENDORED from https://github.com/snowpackjs/snowpack/blob/main/plugins/web-test-runner-plugin/plugin.js
-const {isTestFilePath} = require('@web/test-runner');
+const { isTestFilePath } = require('@web/test-runner');
 const snowpack = require('snowpack');
 const path = require('path');
 
@@ -8,7 +8,9 @@ const path = require('path');
  * @param {string} url
  */
 function isTestRunnerFile(url) {
-  return url.startsWith('/__web-dev-server') || url.startsWith('/__web-test-runner');
+  return (
+    url.startsWith('/__web-dev-server') || url.startsWith('/__web-test-runner')
+  );
 }
 
 module.exports = function () {
@@ -23,13 +25,13 @@ To Resolve:
 
   return {
     name: 'snowpack-plugin',
-    async serverStart({fileWatcher}) {
+    async serverStart({ fileWatcher }) {
       config = await snowpack.loadConfiguration({
-        packageOptions: {external: ['/__web-dev-server__web-socket.js']},
-        devOptions: {open: 'none', output: 'stream', hmr: false},
+        packageOptions: { external: ['/__web-dev-server__web-socket.js'] },
+        devOptions: { open: 'none', output: 'stream', hmr: false },
       });
-      console.log("CONFIG FOR SNOWPACK:")
-      console.log(config)
+      console.log('CONFIG FOR SNOWPACK:');
+      console.log(config);
       fileWatcher.add(Object.keys(config.mount));
       server = await snowpack.startServer({
         config,
@@ -39,19 +41,19 @@ To Resolve:
     async serverStop() {
       return server.shutdown();
     },
-    async serve({request}) {
+    async serve({ request }) {
       if (isTestRunnerFile(request.url)) {
         return;
       }
       const reqPath = request.path;
       try {
-        const result = await server.loadUrl(reqPath, {isSSR: false});
-        return {body: result.contents, type: result.contentType};
+        const result = await server.loadUrl(reqPath, { isSSR: false });
+        return { body: result.contents, type: result.contentType };
       } catch {
         return;
       }
     },
-    transformImport({source}) {
+    transformImport({ source }) {
       if (!isTestFilePath(source) || isTestRunnerFile(source)) {
         return;
       }
