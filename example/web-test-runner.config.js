@@ -7,7 +7,7 @@ console.log(snowpackPlugin())
 console.log(vitePlugin())
 
 module.exports = {
-  plugins: [snowpackPlugin()],
-  // plugins: [vitePlugin()],
+  // plugins: [snowpackPlugin()],
+  plugins: [vitePlugin()],
   port: 8081,
 };
