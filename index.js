@@ -5,9 +5,9 @@ const { isTestFilePath } = require('@web/test-runner');
 
 // quick toggleable log function
 const VERBOSE = true;
-function log(el) {
+function log(...args) {
   if (VERBOSE) {
-    console.log(el);
+    console.log(...args);
   }
 }
 
