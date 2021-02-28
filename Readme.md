@@ -1,6 +1,6 @@
 ## Integration for Vite and Web Test Runner
 
-
+In response to the issue https://github.com/vitejs/vite/issues/2294 this is ready setup that currently works with Snowpack and fails with Vite.js (see `example` folder).
 
 ## Local dev
 
