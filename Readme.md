@@ -9,8 +9,10 @@
 # first link the current folder
 $ yarn link
 $ cd example
+
 # install node modules
 $ yarn
+
 # now link to the `exposed` local folder for vite-plugin-web-test-runner
 $ yarn link "vite-plugin-web-test-runner"
 ```
